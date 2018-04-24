@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_header, parent, false);
+            view.setTag(R.id.is_sticky, false);
             return new RecyclerView.ViewHolder(view) {
             };
         }

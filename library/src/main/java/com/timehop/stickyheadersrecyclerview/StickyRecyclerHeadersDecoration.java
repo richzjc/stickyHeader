@@ -104,24 +104,54 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
         }
 
         for (int i = 0; i < childCount; i++) {
-            View itemView = parent.getChildAt(i);
-            int position = parent.getChildAdapterPosition(itemView);
-            if (position == RecyclerView.NO_POSITION) {
-                continue;
-            }
+            renderHeader(canvas, parent, i);
+        }
+    }
 
-            boolean hasStickyHeader = mHeaderPositionCalculator.hasStickyHeader(itemView, mOrientationProvider.getOrientation(parent), position);
-            if (hasStickyHeader || mHeaderPositionCalculator.hasNewHeader(position, mOrientationProvider.isReverseLayout(parent))) {
-                View header = mHeaderProvider.getHeader(parent, position);
-                //re-use existing Rect, if any.
-                Rect headerOffset = mHeaderRects.get(position);
-                if (headerOffset == null) {
-                    headerOffset = new Rect();
-                    mHeaderRects.put(position, headerOffset);
-                }
-                mHeaderPositionCalculator.initHeaderBounds(headerOffset, parent, header, itemView, hasStickyHeader);
-                mRenderer.drawHeader(parent, canvas, header, headerOffset);
+    private void renderHeader(Canvas canvas, RecyclerView parent, int i) {
+        View itemView = parent.getChildAt(i);
+        int position = parent.getChildAdapterPosition(itemView);
+        if (position == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        View header = mHeaderProvider.getHeader(parent, position);
+        try {
+            boolean is_sticky = (Boolean) header.getTag(R.id.is_sticky);
+            if(is_sticky)
+                renderStickyHeader(canvas, parent, itemView, position, header);
+            else
+                renderUnStickyHeader(canvas, parent, itemView, position, header);
+        } catch (Exception e) {
+            e.printStackTrace();
+            renderStickyHeader(canvas, parent, itemView, position, header);
+        }
+    }
+
+    private void renderUnStickyHeader(Canvas canvas, RecyclerView parent, View itemView, int position, View header) {
+        if (mHeaderPositionCalculator.hasNewHeader(position, mOrientationProvider.isReverseLayout(parent))) {
+            //re-use existing Rect, if any.
+            Rect headerOffset = mHeaderRects.get(position);
+            if (headerOffset == null) {
+                headerOffset = new Rect();
+                mHeaderRects.put(position, headerOffset);
             }
+            mHeaderPositionCalculator.initHeaderBounds(headerOffset, parent, header, itemView);
+            mRenderer.drawHeader(parent, canvas, header, headerOffset);
+        }
+    }
+
+    private void renderStickyHeader(Canvas canvas, RecyclerView parent, View itemView, int position, View header) {
+        boolean hasStickyHeader = mHeaderPositionCalculator.hasStickyHeader(itemView, mOrientationProvider.getOrientation(parent), position);
+        if (hasStickyHeader || mHeaderPositionCalculator.hasNewHeader(position, mOrientationProvider.isReverseLayout(parent))) {
+            //re-use existing Rect, if any.
+            Rect headerOffset = mHeaderRects.get(position);
+            if (headerOffset == null) {
+                headerOffset = new Rect();
+                mHeaderRects.put(position, headerOffset);
+            }
+            mHeaderPositionCalculator.initHeaderBounds(headerOffset, parent, header, itemView, hasStickyHeader);
+            mRenderer.drawHeader(parent, canvas, header, headerOffset);
         }
     }
 

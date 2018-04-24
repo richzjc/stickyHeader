@@ -257,4 +257,30 @@ public class HeaderPositionCalculator {
             return 0;
         }
     }
+
+    public void initHeaderBounds(Rect headerMargins, RecyclerView recyclerView, View header, View firstView) {
+        int orientation = mOrientationProvider.getOrientation(recyclerView);
+        int translationX, translationY;
+        mDimensionCalculator.initMargins(mTempRect1, header);
+
+        ViewGroup.LayoutParams layoutParams = firstView.getLayoutParams();
+        int leftMargin = 0;
+        int topMargin = 0;
+        if (layoutParams instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) layoutParams;
+            leftMargin = marginLayoutParams.leftMargin;
+            topMargin = marginLayoutParams.topMargin;
+        }
+
+        if (orientation == LinearLayoutManager.VERTICAL) {
+            translationX = firstView.getLeft() - leftMargin + mTempRect1.left;
+            translationY = firstView.getTop() - topMargin - header.getHeight() - mTempRect1.bottom;
+        } else {
+            translationY = firstView.getTop() - topMargin + mTempRect1.top;
+            translationX = firstView.getLeft() - leftMargin - header.getWidth() - mTempRect1.right;
+        }
+
+        headerMargins.set(translationX, translationY, translationX + header.getWidth(),
+                translationY + header.getHeight());
+    }
 }
