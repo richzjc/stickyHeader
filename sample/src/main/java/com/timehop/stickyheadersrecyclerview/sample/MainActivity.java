@@ -21,6 +21,7 @@ import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersTouchListener;
 
 import java.security.SecureRandom;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -122,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_item, parent, false);
-            return new RecyclerView.ViewHolder(view) {
-            };
+            return new RecyclerView.ViewHolder(view) {};
         }
 
         @Override
@@ -141,7 +141,10 @@ public class MainActivity extends AppCompatActivity {
         public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_header, parent, false);
-            view.setTag(R.id.is_sticky, false);
+            Random random = new Random();
+            int index = random.nextInt(2);
+            boolean[] b = new boolean[]{true, false};
+            view.setTag(R.id.is_sticky, b[index]);
             return new RecyclerView.ViewHolder(view) {
             };
         }

@@ -3,6 +3,7 @@ package com.timehop.stickyheadersrecyclerview;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -97,13 +98,32 @@ public class HeaderPositionCalculator {
     public void initHeaderBounds(Rect bounds, RecyclerView recyclerView, View header, View firstView, boolean firstHeader) {
         int orientation = mOrientationProvider.getOrientation(recyclerView);
         initDefaultHeaderOffset(bounds, recyclerView, header, firstView, orientation);
+        boolean flag = isStickyHeaderBeingPushedOffscreen(recyclerView, header);
+        if(!flag){
+            try {
+                StickyHeaderBeingPushCalback callback = (StickyHeaderBeingPushCalback) header.getTag(R.id.sticky_callback);
+                if(callback != null)
+                    callback.show(header);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
-        if (firstHeader && isStickyHeaderBeingPushedOffscreen(recyclerView, header)) {
+        if (firstHeader && flag) {
             View viewAfterNextHeader = getFirstViewUnobscuredByHeader(recyclerView, header);
             int firstViewUnderHeaderPosition = recyclerView.getChildAdapterPosition(viewAfterNextHeader);
             View secondHeader = mHeaderProvider.getHeader(recyclerView, firstViewUnderHeaderPosition);
             translateHeaderWithNextHeader(recyclerView, mOrientationProvider.getOrientation(recyclerView), bounds,
                     header, viewAfterNextHeader, secondHeader);
+            try {
+                StickyHeaderBeingPushCalback callback = (StickyHeaderBeingPushCalback) header.getTag(R.id.sticky_callback);
+                Integer type1 = (Integer) header.getTag(R.id.header_type);
+                Integer type2 = (Integer) secondHeader.getTag(R.id.header_type);
+                if(callback != null && (type1 == type2))
+                    callback.show(secondHeader, header);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
