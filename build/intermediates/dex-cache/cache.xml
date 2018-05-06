@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/build/intermediates/exploded-aar/RecycleViewStickyHeader/library/unspecified/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8a0190203a06f4866bf4f039ff019ddc90318989">
+        <dex dex="/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/build/intermediates/pre-dexed/debug/RecycleViewStickyHeader-library-unspecified_2bda20ce015ac61ca1fdf60766ec62dd54ecc159.jar" />
+    </item>
+
+</items>

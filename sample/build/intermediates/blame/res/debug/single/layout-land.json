@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/build/intermediates/res/merged/debug/layout-land/view_item.xml",
+        "source": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/src/main/res/layout-land/view_item.xml"
+    },
+    {
+        "merged": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/build/intermediates/res/merged/debug/layout-land/view_header.xml",
+        "source": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/sample/src/main/res/layout-land/view_header.xml"
+    }
+]
