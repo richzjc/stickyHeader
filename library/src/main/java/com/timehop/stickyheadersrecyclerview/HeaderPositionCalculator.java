@@ -3,7 +3,6 @@ package com.timehop.stickyheadersrecyclerview;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,15 +11,18 @@ import com.timehop.stickyheadersrecyclerview.caching.HeaderProvider;
 import com.timehop.stickyheadersrecyclerview.calculation.DimensionCalculator;
 import com.timehop.stickyheadersrecyclerview.util.OrientationProvider;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Calculates the position and location of header views
  */
 public class HeaderPositionCalculator {
 
     private final StickyRecyclerHeadersAdapter mAdapter;
-    private final OrientationProvider          mOrientationProvider;
-    private final HeaderProvider               mHeaderProvider;
-    private final DimensionCalculator          mDimensionCalculator;
+    private final OrientationProvider mOrientationProvider;
+    private final HeaderProvider mHeaderProvider;
+    private final DimensionCalculator mDimensionCalculator;
 
     /**
      * The following fields are used as buffers for internal calculations. Their sole purpose is to avoid
@@ -98,33 +100,32 @@ public class HeaderPositionCalculator {
     public void initHeaderBounds(Rect bounds, RecyclerView recyclerView, View header, View firstView, boolean firstHeader) {
         int orientation = mOrientationProvider.getOrientation(recyclerView);
         initDefaultHeaderOffset(bounds, recyclerView, header, firstView, orientation);
-        boolean flag = isStickyHeaderBeingPushedOffscreen(recyclerView, header);
-        if(!flag){
-            try {
-                StickyHeaderBeingPushCalback callback = (StickyHeaderBeingPushCalback) header.getTag(R.id.sticky_callback);
-                if(callback != null)
-                    callback.show(header);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            StickyHeaderBeingPushCalback callback = (StickyHeaderBeingPushCalback) header.getTag(R.id.sticky_callback);
+            if (callback != null && checkSticky(bounds, recyclerView, header))
+                callback.show(header);
+            else if(callback != null)
+                callback.hide(header);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (firstHeader && flag) {
+        if (firstHeader && isStickyHeaderBeingPushedOffscreen(recyclerView, header)) {
             View viewAfterNextHeader = getFirstViewUnobscuredByHeader(recyclerView, header);
             int firstViewUnderHeaderPosition = recyclerView.getChildAdapterPosition(viewAfterNextHeader);
             View secondHeader = mHeaderProvider.getHeader(recyclerView, firstViewUnderHeaderPosition);
             translateHeaderWithNextHeader(recyclerView, mOrientationProvider.getOrientation(recyclerView), bounds,
                     header, viewAfterNextHeader, secondHeader);
-            try {
-                StickyHeaderBeingPushCalback callback = (StickyHeaderBeingPushCalback) header.getTag(R.id.sticky_callback);
-                Integer type1 = (Integer) header.getTag(R.id.header_type);
-                Integer type2 = (Integer) secondHeader.getTag(R.id.header_type);
-                if(callback != null && (type1 == type2))
-                    callback.show(secondHeader, header);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+    }
+
+    private boolean checkSticky(Rect bounds, RecyclerView recyclerView, View header) {
+        mDimensionCalculator.initMargins(mTempRect1, header);
+        int translateY = getListTop(recyclerView) + mTempRect1.top;
+        if (bounds.top == translateY)
+            return true;
+        else
+            return false;
     }
 
     private void initDefaultHeaderOffset(Rect headerMargins, RecyclerView recyclerView, View header, View firstView, int orientation) {

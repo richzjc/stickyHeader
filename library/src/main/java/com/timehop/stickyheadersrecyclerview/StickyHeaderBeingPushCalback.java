@@ -6,6 +6,6 @@ public interface StickyHeaderBeingPushCalback {
 
     void show(View showHeader);
 
-    void show(View showHeader, View hideHeader);
+    void hide(View hideHeader);
 
 }

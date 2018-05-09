@@ -2,5 +2,4 @@
 <resources>
     <item name="is_sticky" type="id"/>
     <item name="sticky_callback" type="id"/>
-    <item name="header_type" type="id"/>
 </resources>

@@ -1,5 +1,14 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
+
+publish {
+    userOrg = 'richzjc'
+    groupId = 'com.richzjc'
+    artifactId = 'stickyHeader'
+    publishVersion = '1.0.0'
+    desc = '提供了header'
+}
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion as Integer
     buildToolsVersion rootProject.ext.buildToolsVersion as String
@@ -16,12 +25,26 @@ android {
     }
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.1'
+    }
+}
+
 dependencies {
     compile "com.android.support:recyclerview-v7:${rootProject.supportLibsVersion}"
 }
 
-apply from: 'gradle-maven-push.gradle'
+
 
 afterEvaluate {
     androidJavadocs.classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
 }
+
+
+
+
+

@@ -17,13 +17,13 @@ import com.timehop.stickyheadersrecyclerview.util.OrientationProvider;
 public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration {
 
     private final StickyRecyclerHeadersAdapter mAdapter;
-    private final ItemVisibilityAdapter        mVisibilityAdapter;
+    private final ItemVisibilityAdapter mVisibilityAdapter;
     private final SparseArray<Rect> mHeaderRects = new SparseArray<>();
-    private final HeaderProvider           mHeaderProvider;
-    private final OrientationProvider      mOrientationProvider;
+    private final HeaderProvider mHeaderProvider;
+    private final OrientationProvider mOrientationProvider;
     private final HeaderPositionCalculator mHeaderPositionCalculator;
-    private final HeaderRenderer           mRenderer;
-    private final DimensionCalculator      mDimensionCalculator;
+    private final HeaderRenderer mRenderer;
+    private final DimensionCalculator mDimensionCalculator;
 
     /**
      * The following field is used as a buffer for internal calculations. Its sole purpose is to avoid

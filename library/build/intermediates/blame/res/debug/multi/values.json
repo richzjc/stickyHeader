@@ -11,14 +11,7 @@
                     "endOffset": 397
                 },
                 "from": {
-                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml",
-                    "position": {
-                        "startLine": 5,
-                        "startColumn": 4,
-                        "startOffset": 500,
-                        "endColumn": 74,
-                        "endOffset": 570
-                    }
+                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml"
                 }
             },
             {
@@ -26,17 +19,48 @@
                     "startLine": 4,
                     "startColumn": 4,
                     "startOffset": 402,
-                    "endColumn": 65,
-                    "endOffset": 463
+                    "endColumn": 38,
+                    "endOffset": 436
                 },
                 "from": {
-                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml",
+                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/src/main/res/values/attr.xml",
                     "position": {
-                        "startLine": 8,
+                        "startLine": 2,
                         "startColumn": 4,
-                        "startOffset": 745,
-                        "endColumn": 65,
-                        "endOffset": 806
+                        "startOffset": 55,
+                        "endColumn": 38,
+                        "endOffset": 89
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 441,
+                    "endColumn": 65,
+                    "endOffset": 502
+                },
+                "from": {
+                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/res/values/values.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 507,
+                    "endColumn": 44,
+                    "endOffset": 547
+                },
+                "from": {
+                    "file": "/Users/zhangjianchuan/project/android/RecycleViewStickyHeader/library/src/main/res/values/attr.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 94,
+                        "endColumn": 44,
+                        "endOffset": 134
                     }
                 }
             }

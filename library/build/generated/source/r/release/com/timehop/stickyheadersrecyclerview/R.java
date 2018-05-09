@@ -46,10 +46,9 @@ containing a value of this type.
         public static int item_touch_helper_max_drag_scroll_per_frame=0x7f020000;
     }
     public static final class id {
-        public static int header_type=0x7f030000;
-        public static int is_sticky=0x7f030001;
-        public static int item_touch_helper_previous_elevation=0x7f030002;
-        public static int sticky_callback=0x7f030003;
+        public static int is_sticky=0x7f030000;
+        public static int item_touch_helper_previous_elevation=0x7f030001;
+        public static int sticky_callback=0x7f030002;
     }
     public static final class styleable {
         /** Attributes that can be used with a RecyclerView.

@@ -774,7 +774,6 @@
     <item name="action_bar_spinner" type="id"/>
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
-    <item name="header_type" type="id"/>
     <item name="home" type="id"/>
     <item name="is_sticky" type="id"/>
     <item name="item_touch_helper_previous_elevation" type="id"/>
